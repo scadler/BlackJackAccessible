@@ -1,6 +1,7 @@
 /* global $ */
 // var audio = new Audio('https://www.youtube.com/watch?v=ld5aYossAcY');
 // audio.play();
+
 var buttonPickCounter = 1;
 var game = {
     music: "https://www.youtube.com/watch?v=ld5aYossAcY",
@@ -97,22 +98,11 @@ function getScore(card) {
  }
 }
 
-var toggleCounter = 0
-
-
-
-setInterval(buttonToggle, 2000)
-function buttonToggle(){
-    toggleCounter = toggleCounter+1
-    return toggleCounter;
-}
-// mouseclick call function buttonToggle
-
-
 
 
 // 1, Deal Button, establishes deck and runs functions///////////////////////////////////////////////////////////////////////////////////////////////////
-$("#start").click(function() {
+//$("#start").click(function() {
+function start(){
  i = 1;
  reset();
  $.ajax({
@@ -124,16 +114,18 @@ $("#start").click(function() {
    getHand(deckID);
    hit(deckID);
    compDeal(deckID);
-   $("#stand").click(function() {
+  // $("#stand").click(function() {
+    function stand(){
     if (click.stand === false && click.bust === false) {
      click.stand = true;
      compDraw(deckID);
      blackjack();
     }
-   });
+   }//});
   }
  });
-});
+}
+//});//////////////////////
 // 2, Deals the starting computer hand/////////////////////////////////////////////////////////////////////////////////////////////////
 function compDeal(deckID) {
  var compHand = "";
@@ -254,6 +246,8 @@ function getHand(deckID) {
 }
 // 4, Resets all variables/////////////////////////////////////////////////////////////////////////////////////////////////
 function reset() {
+var toggleCounter = 0
+var toggleList ={toggle: toggleCounter}
 var buttonPickCounter = 1
  var compWon = false;
  var userWon = false;
@@ -577,3 +571,55 @@ function blackjack() {
   }
  }
 };
+
+var toggleCounter = 3
+var toggleList ={toggle: toggleCounter}
+//var compCardA = `${response.cards[0].code}`;
+
+function buttonToggle(){
+    console.log(toggleList.execute);
+    console.log("works");
+    toggleCounter = toggleCounter+1
+    toggleList = {toggle: toggleCounter}
+    if(toggleList.toggle%4===0){
+        $("#start").css("background-color", "#aaaaaa")
+        $("#start").css("color", "white")
+        $("#intro").css("background-color", "white")
+        $("#intro").css("color", "black")
+    }
+    else if(toggleList.toggle%4===1){
+        $("#hit").css("background-color", "#aaaaaa")
+        $("#hit").css("color", "white")
+        $("#start").css("background-color", "white")
+        $("#start").css("color", "black")
+    }
+    else if(toggleList.toggle%4===2){
+        $("#stand").css("background-color", "#aaaaaa")
+        $("#stand").css("color", "white")
+        $("#hit").css("background-color", "white")
+        $("#hit").css("color", "black")
+    }
+    else if(toggleList.toggle%4===3){
+        $("#intro").css("background-color", "#aaaaaa")
+        $("#intro").css("color", "white")
+        $("#stand").css("background-color", "white")
+        $("#stand").css("color", "black")
+    }
+}
+
+setInterval(buttonToggle, 2000)
+$('html').click(function(){
+    if(toggleList.toggle%4===0){
+        start();
+    }
+    else if(toggleList.toggle%4===1){
+        start();
+    }
+     else if(toggleList.toggle%4===2){
+        start();
+    }
+     else if(toggleList.toggle%4===3){
+        start();
+    }
+console.log(toggleList.toggle);
+});
