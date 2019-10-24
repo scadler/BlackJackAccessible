@@ -294,7 +294,7 @@ aceC.flipC = false,
 }
 // 5, Gives player additional cards/////////////////////////////////////////////////////////////////////////////////////////////////
 function hit(deckID) {
- $("#hit").click(function() {
+ if(toggleList.toggle%4===1){
   if (click.stand === false && click.deal === true && click.hit === false && click.bust === false) {
    click.hit = true;
    click.cardNum = click.cardNum + 1;
@@ -400,7 +400,7 @@ function hit(deckID) {
     },
    }, );
   }
- });
+}// });
 }
 // 6, Computer rules for playing/////////////////////////////////////////////////////////////////////////////////////////////////
 function compDraw(deckID) {
@@ -613,7 +613,7 @@ $('html').click(function(){
         start();
     }
     else if(toggleList.toggle%4===1){
-        start();
+        hit(deckID);
     }
      else if(toggleList.toggle%4===2){
         start();
