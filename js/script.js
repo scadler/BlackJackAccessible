@@ -96,10 +96,21 @@ function getScore(card) {
   return 11;
  }
 }
-setInterval(log, 2000)
-function log(){
-    console.log("works");
+
+var toggleCounter = 0
+
+
+
+setInterval(buttonToggle, 2000)
+function buttonToggle(){
+    toggleCounter = toggleCounter+1
+    return toggleCounter;
 }
+// mouseclick call function buttonToggle
+
+
+
+
 // 1, Deal Button, establishes deck and runs functions///////////////////////////////////////////////////////////////////////////////////////////////////
 $("#start").click(function() {
  i = 1;
@@ -565,15 +576,4 @@ function blackjack() {
    $("#winner").text(", you won!");
   }
  }
-}
-
-//setInterval(buttonPick, 2000)
-//function buttonPickCounterFunc(){
-//    buttonPickCounter = buttonPickCounter+1
- //   return buttonPickCounter
-////}
-
-//$(html).click(function(){
- //   var htmlClick = buttonPickCounterFunc();
-   // console.log(htmlClick);
-//});
+};
