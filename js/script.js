@@ -97,9 +97,9 @@ function getScore(card) {
  }
 }
 setInterval(log, 2000)
-function log(
+function log(){
     console.log("works");
-)
+}
 // 1, Deal Button, establishes deck and runs functions///////////////////////////////////////////////////////////////////////////////////////////////////
 $("#start").click(function() {
  i = 1;
