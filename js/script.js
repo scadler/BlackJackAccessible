@@ -591,7 +591,7 @@ function buttonToggle(){
         $("#hit").css("color", "black")
     }
 }
-setInterval(buttonToggle, 750)
+setInterval(buttonToggle, 2000)
 $('html').click(function(){
     if(toggleList.toggle%3===0){
         start();
