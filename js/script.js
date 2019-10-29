@@ -1,6 +1,4 @@
 /* global $ */
-// var audio = new Audio('https://www.youtube.com/watch?v=ld5aYossAcY');
-// audio.play();
 function standAuto (){if(click.stand===false && click.bust === false){
      click.stand = true;
      console.log("works")
@@ -57,7 +55,6 @@ var aceC = {
  drewS: false,
 };
 var aces = {
-
 };
 var aceCounter = {
  numFlipped: 0,
@@ -76,7 +73,6 @@ var hand = ""
 var startClicked = false;
 var i = "";
 var run = false;
-
 function getScore(card) {
  if (card === "2D" || card === "2C" || card === "2H" || card === "2S") {
   return 2;
@@ -119,11 +115,7 @@ function getScore(card) {
   aceCounter.numFlipped = aceCounter.numFlipped+1;
  }
 }
-
-
-
 // 1, Deal Button, establishes deck and runs functions///////////////////////////////////////////////////////////////////////////////////////////////////
-//$("#start").click(function() {
 function start(){
  i = 1;
  reset();
@@ -133,17 +125,14 @@ function start(){
   success: function(response) {
    var deckID = `${response.deck_id}`;
    keep.id = deckID;
-
    console.log("deckID " + deckID);
    getHand(deckID);
    hit(deckID);
    compDeal(deckID);
-  // $("#stand").click(function() {
-
-   }//});
+   }
   })
 }
-//});//////////////////////
+
 // 2, Deals the starting computer hand/////////////////////////////////////////////////////////////////////////////////////////////////
 function compDeal(deckID) {
  var compHand = "";
@@ -201,7 +190,6 @@ function getHand(deckID) {
    else {
     userScore = userScore + getScore(cardA);
    }
-
    $("#cardA").click(function() {
     var userScore = Number($("#userPoints").text());
     if (aceA.drew === true && aceA.flip === false && click.stand === false) {
@@ -257,6 +245,9 @@ function getHand(deckID) {
      aceCounter.numFlipped = aceCounter.numFlipped + 1;
     }
    });
+   if(userScore === 21 && click.hit === false){
+       $("#winner").text(" Blackjack! you won!");
+   }
    $("#userPoints").text(userScore);
    $("#userPoints2").text(userScore);
   },
@@ -374,27 +365,6 @@ function hit(deckID) {
       aces[`ace-${i}`] = true;
       bust();
       scoreCorrecter ();
-    // This code would interfere with the auto ace flipper,
-    // so it has been commented out
-    //  $(`#ace-${i}`).click(function() {
-    //    var aceID = $(this).attr('id');
-    //    var userScore = Number($("#userPoints").text());
-    //    if (aces[aceID] === false) {
-    //     click.ace = true;
-    //     userScore = userScore + 10;
-    //     click.ace = false;
-    //     aceCounter.numFlipped = aceCounter.numFlipped + 1;
-    //    }
-    //    if (aces[aceID] === true) {
-    //     click.ace = true;
-    //     userScore = userScore - 10;
-    //     click.ace = false;
-    //     aceCounter.numFlipped = aceCounter.numFlipped - 1;
-    //    }
-    //    aces[aceID] = !(aces[aceID]);
-    //    $("#userPoints").text(userScore);
-    //    $("#userPoints2").text(userScore);
-    // //  });
       userScoreHit = userScoreHit + 11;
       aceC.drew = true;
       bust();
@@ -461,18 +431,16 @@ function compDraw(deckID) {
      aceCounter = aceCounter - 1;
      aceFlipped = true;
     }
-
     else if (compScore + 10 < 22 && aceCounter > 0 && aceFlipped === true) {
      compScore = compScore + 10;
      aceCounter = aceCounter - 1;
      aceFlipped = false;
     }
-
     victor(compScore);
    }
   },
- }, );
-
+ },
+ );
 }
 $("#compHand").append();
 // 7, function decides who won/////////////////////////////////////////////////////////////////////////////////////////////////
@@ -543,7 +511,6 @@ function bust(deckID) {
   $("#money").text(chips + " chips");
  }
 }
-
 function lost(compWon) {
  if (click.won === false && compWon === true) {
   compWon = false;
@@ -555,7 +522,6 @@ function lost(compWon) {
  }
  click.won = true;
 }
-
 function won(userWon, compScore) {
  var userPointsVal = Number($("#userPoints").text());
  var compScore = Number($("#compPoints").text());
@@ -581,7 +547,6 @@ function won(userWon, compScore) {
  }
  click.won = true;
 }
-
 function blackjack() {
  var score = Number($("#userPoints").text());
  var blackjack = black.jack;
@@ -599,11 +564,8 @@ function blackjack() {
   }
  }
 };
-
 var toggleCounter = 2
 var toggleList ={toggle: toggleCounter}
-//var compCardA = `${response.cards[0].code}`;
-
 function buttonToggle(){
    // console.log(toggleList.execute);
     console.log("works");
@@ -614,7 +576,6 @@ function buttonToggle(){
         $("#start").css("color", "white")
         $("#stand").css("background-color", "white")
         $("#stand").css("color", "black")
-
     }
     else if(toggleList.toggle%3===1){
         $("#hit").css("background-color", "#aaaaaa")
@@ -628,10 +589,8 @@ function buttonToggle(){
         $("#hit").css("background-color", "white")
         $("#hit").css("color", "black")
     }
-
 }
-
-setInterval(buttonToggle, 2000)
+setInterval(buttonToggle, 750)
 $('html').click(function(){
     if(toggleList.toggle%3===0){
         start();
@@ -639,12 +598,10 @@ $('html').click(function(){
     else if(toggleList.toggle%3===1){
         deckID = keep.id;
         hit(deckID);
-
     }
      else if(toggleList.toggle%3===2){
         standAuto();
         console.log("runs")
     }
-
 console.log(toggleList.toggle);
 });
