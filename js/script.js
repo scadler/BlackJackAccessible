@@ -439,10 +439,10 @@ function compDraw(deckID) {
  var aceCounter = 0;
  var aceFlipped = false;
  $.ajax({
-  url: "https://deckofcardsapi.com/api/deck/" + deckID + "/draw/?count=8",
+  url: "https://deckofcardsapi.com/api/deck/" + deckID + "/draw/?count=20",
   method: "GET",
   success: function(response) {
-   while (compScore < 17 && i < 8) {
+   while (compScore-(aceCounter*10) < 17 && i < 20 && compScore < 18) {
     i = i + 1;
     compCardImg = `<img class="compHandImg, face" src=${response.cards[i].image}\>`;
     compCardID = `${response.cards[i].code}`;
@@ -461,11 +461,13 @@ function compDraw(deckID) {
      aceCounter = aceCounter - 1;
      aceFlipped = true;
     }
+
     else if (compScore + 10 < 22 && aceCounter > 0 && aceFlipped === true) {
      compScore = compScore + 10;
      aceCounter = aceCounter - 1;
      aceFlipped = false;
     }
+
     victor(compScore);
    }
   },
