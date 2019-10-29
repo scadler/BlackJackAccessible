@@ -1,10 +1,12 @@
 /* global $ */
 // var audio = new Audio('https://www.youtube.com/watch?v=ld5aYossAcY');
 // audio.play();
-function standAuto (){ if(bust===false){
+function standAuto (){if(click.stand===false && click.bust === false){
      click.stand = true;
      console.log("works")
      deckID = keep.id
+     console.log(keep.id);
+     console.log(deckID);
      compDraw(deckID);
      blackjack();}
 };
@@ -582,7 +584,7 @@ var toggleList ={toggle: toggleCounter}
 //var compCardA = `${response.cards[0].code}`;
 
 function buttonToggle(){
-    console.log(toggleList.execute);
+   // console.log(toggleList.execute);
     console.log("works");
     toggleCounter = toggleCounter+1
     toggleList = {toggle: toggleCounter}
