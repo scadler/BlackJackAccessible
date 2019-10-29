@@ -374,26 +374,27 @@ function hit(deckID) {
       aces[`ace-${i}`] = true;
       bust();
       scoreCorrecter ();
-      $(`#ace-${i}`).click(function() {
-       var aceID = $(this).attr('id');
-       var userScore = Number($("#userPoints").text());
-       if (aces[aceID] === false) {
-        click.ace = true;
-        userScore = userScore + 10;
-        click.ace = false;
-        aceCounter.numFlipped = aceCounter.numFlipped + 1;
-       }
-       if (aces[aceID] === true) {
-        click.ace = true;
-        userScore = userScore - 10;
-        click.ace = false;
-        aceCounter.numFlipped = aceCounter.numFlipped - 1;
-       }
-       aces[aceID] = !(aces[aceID]);
-       $("#userPoints").text(userScore);
-       $("#userPoints2").text(userScore);
-
-      });
+    // This code would interfere with the auto ace flipper,
+    // so it has been commented out
+    //  $(`#ace-${i}`).click(function() {
+    //    var aceID = $(this).attr('id');
+    //    var userScore = Number($("#userPoints").text());
+    //    if (aces[aceID] === false) {
+    //     click.ace = true;
+    //     userScore = userScore + 10;
+    //     click.ace = false;
+    //     aceCounter.numFlipped = aceCounter.numFlipped + 1;
+    //    }
+    //    if (aces[aceID] === true) {
+    //     click.ace = true;
+    //     userScore = userScore - 10;
+    //     click.ace = false;
+    //     aceCounter.numFlipped = aceCounter.numFlipped - 1;
+    //    }
+    //    aces[aceID] = !(aces[aceID]);
+    //    $("#userPoints").text(userScore);
+    //    $("#userPoints2").text(userScore);
+    // //  });
       userScoreHit = userScoreHit + 11;
       aceC.drew = true;
       bust();
