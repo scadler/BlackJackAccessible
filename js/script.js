@@ -10,6 +10,16 @@ function standAuto (){if(click.stand===false && click.bust === false){
      compDraw(deckID);
      blackjack();}
 };
+function scoreCorrecter (){
+    var userScoreCorrect = Number($("#userPoints").text());
+    if(userScoreCorrect > 21 && aceCounter.numFlipped > 0){
+        userScoreCorrect = userScoreCorrect-10;
+        aceCounter.numFlipped = aceCounter.numFlipped-1;
+        console.log(userScoreCorrect +" crrtrt")
+        $("#userPoints").text(userScoreCorrect);
+        $("#userPoints2").text(userScoreCorrect);
+    }
+}
 var buttonPickCounter = 1;
 var game = {
     music: "https://www.youtube.com/watch?v=ld5aYossAcY",
@@ -106,6 +116,7 @@ function getScore(card) {
  }
  else if (card === "AD" || card === "AC" || card === "AH" || card === "AS") {
   return 11;
+  aceCounter.numFlipped = aceCounter.numFlipped+1;
  }
 }
 
@@ -301,6 +312,7 @@ aceC.flipC = false,
 }
 // 5, Gives player additional cards/////////////////////////////////////////////////////////////////////////////////////////////////
 function hit(deckID) {
+    scoreCorrecter ()
  if(toggleList.toggle%3===1){
   if (click.stand === false && click.deal === true && click.hit === false && click.bust === false) {
    click.hit = true;
@@ -361,6 +373,7 @@ function hit(deckID) {
       var cardImg = $("#playerHand").append(handTwo);
       aces[`ace-${i}`] = true;
       bust();
+      scoreCorrecter ();
       $(`#ace-${i}`).click(function() {
        var aceID = $(this).attr('id');
        var userScore = Number($("#userPoints").text());
@@ -379,16 +392,19 @@ function hit(deckID) {
        aces[aceID] = !(aces[aceID]);
        $("#userPoints").text(userScore);
        $("#userPoints2").text(userScore);
+
       });
       userScoreHit = userScoreHit + 11;
       aceC.drew = true;
       bust();
+      scoreCorrecter ();
      }
      userPointsVal = Number($("#userPoints").text());
      $("#userPoints").text(userPointsVal + userScoreHit);
      $("#userPoints2").text(userPointsVal + userScoreHit);
      bust();
      click.hit = false;
+     scoreCorrecter ()
      $(".cardC").click(function() {
       var userScore = Number($("#userPoints").text());
       if (aceC.drew === true && aceC.flip === false && click.stand === false) {
@@ -403,11 +419,13 @@ function hit(deckID) {
        $("#userPoints").text(userScore);
        $("#userPoints2").text(userScore);
       }
+      scoreCorrecter ()
      });
     },
    }, );
   }
 }// });
+scoreCorrecter ()
 }
 // 6, Computer rules for playing/////////////////////////////////////////////////////////////////////////////////////////////////
 function compDraw(deckID) {
