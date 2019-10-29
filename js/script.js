@@ -246,7 +246,8 @@ function getHand(deckID) {
     }
    });
    if(userScore === 21 && click.hit === false){
-       $("#winner").text(" Blackjack! you won!");
+       $("#comma").text(",");
+       $("#winner").text(" Blackjack! You won!");
    }
    $("#userPoints").text(userScore);
    $("#userPoints2").text(userScore);
