@@ -1,7 +1,13 @@
 /* global $ */
 // var audio = new Audio('https://www.youtube.com/watch?v=ld5aYossAcY');
 // audio.play();
-
+function standAuto (){ if(bust===false){
+     click.stand = true;
+     console.log("works")
+     deckID = keep.id
+     compDraw(deckID);
+     blackjack();}
+};
 var buttonPickCounter = 1;
 var game = {
     music: "https://www.youtube.com/watch?v=ld5aYossAcY",
@@ -16,6 +22,9 @@ var click = {
  won: false,
  cardNum: 2,
 };
+var keep = {
+    id: "",
+}
 var counterD1 = 0;
 var aceA = {
  flip: false,
@@ -110,20 +119,16 @@ function start(){
   method: "GET",
   success: function(response) {
    var deckID = `${response.deck_id}`;
+   keep.id = deckID;
+
    console.log("deckID " + deckID);
    getHand(deckID);
    hit(deckID);
    compDeal(deckID);
   // $("#stand").click(function() {
-    function stand(){
-    if (click.stand === false && click.bust === false) {
-     click.stand = true;
-     compDraw(deckID);
-     blackjack();
-    }
+
    }//});
-  }
- });
+  })
 }
 //});//////////////////////
 // 2, Deals the starting computer hand/////////////////////////////////////////////////////////////////////////////////////////////////
@@ -294,7 +299,7 @@ aceC.flipC = false,
 }
 // 5, Gives player additional cards/////////////////////////////////////////////////////////////////////////////////////////////////
 function hit(deckID) {
- if(toggleList.toggle%4===1){
+ if(toggleList.toggle%3===1){
   if (click.stand === false && click.deal === true && click.hit === false && click.bust === false) {
    click.hit = true;
    click.cardNum = click.cardNum + 1;
@@ -572,7 +577,7 @@ function blackjack() {
  }
 };
 
-var toggleCounter = 3
+var toggleCounter = 2
 var toggleList ={toggle: toggleCounter}
 //var compCardA = `${response.cards[0].code}`;
 
@@ -581,45 +586,42 @@ function buttonToggle(){
     console.log("works");
     toggleCounter = toggleCounter+1
     toggleList = {toggle: toggleCounter}
-    if(toggleList.toggle%4===0){
+    if(toggleList.toggle%3===0){
         $("#start").css("background-color", "#aaaaaa")
         $("#start").css("color", "white")
-        $("#intro").css("background-color", "white")
-        $("#intro").css("color", "black")
+        $("#stand").css("background-color", "white")
+        $("#stand").css("color", "black")
+
     }
-    else if(toggleList.toggle%4===1){
+    else if(toggleList.toggle%3===1){
         $("#hit").css("background-color", "#aaaaaa")
         $("#hit").css("color", "white")
         $("#start").css("background-color", "white")
         $("#start").css("color", "black")
     }
-    else if(toggleList.toggle%4===2){
+    else if(toggleList.toggle%3===2){
         $("#stand").css("background-color", "#aaaaaa")
         $("#stand").css("color", "white")
         $("#hit").css("background-color", "white")
         $("#hit").css("color", "black")
     }
-    else if(toggleList.toggle%4===3){
-        $("#intro").css("background-color", "#aaaaaa")
-        $("#intro").css("color", "white")
-        $("#stand").css("background-color", "white")
-        $("#stand").css("color", "black")
-    }
+
 }
 
 setInterval(buttonToggle, 2000)
 $('html').click(function(){
-    if(toggleList.toggle%4===0){
+    if(toggleList.toggle%3===0){
         start();
     }
-    else if(toggleList.toggle%4===1){
+    else if(toggleList.toggle%3===1){
+        deckID = keep.id;
         hit(deckID);
+
     }
-     else if(toggleList.toggle%4===2){
-        start();
+     else if(toggleList.toggle%3===2){
+        standAuto();
+        console.log("runs")
     }
-     else if(toggleList.toggle%4===3){
-        start();
-    }
+
 console.log(toggleList.toggle);
 });
